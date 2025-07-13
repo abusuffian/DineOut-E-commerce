@@ -1,9 +1,8 @@
-import Logo from "../../assets/logo.svg";
-import Users from "../../assets/user-icon.svg";
-
-function Navbar() {
+import Logo from "./assets/logo.svg";
+import UserIcon from "./assets/user-icon.svg";
+function Header() {
   return (
-    <nav className="bg-navbg rounded-full mt-4 px-8 py-3 flex justify-between items-center">
+    <div className="bg-navbg rounded-full mt-4 px-8 py-3 flex justify-between items-center">
       <div className="flex items-center ">
         <div className="text-primary mr-2">
           <img src={Logo} />
@@ -13,10 +12,10 @@ function Navbar() {
         </h1>
       </div>
       <div className="flex items-center">
-        <img src={Users} className="h-10" />
+        <img src={UserIcon} className="h-10" />
       </div>
-    </nav>
+    </div>
   );
 }
 
-export default Navbar;
+export default Header;

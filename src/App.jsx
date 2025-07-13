@@ -1,10 +1,8 @@
-import Main from "./components/MainContent/Main";
-import Navbar from "./components/Navbar/Navbar";
+import Header from "./Header";
 function App() {
   return (
     <>
-      <Navbar />
-      <Main />
+      <Header />
     </>
   );
 }
