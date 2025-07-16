@@ -25,9 +25,38 @@ function Order() {
   };
 
   const handleItem = (item) => {
-    setSelectedItems((prev) => [...prev, item]);
+    setSelectedItems((prev) => {
+      const existing = prev.find((i) => i.id === item.id);
+      if (existing) {
+        return prev.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      } else {
+        return [...prev, { ...item, quantity: 1 }];
+      }
+    });
   };
-  const totalAmount = selectedItems.reduce((sum, item) => sum + item.price, 0);
+
+  const handleDecreaseAmount = (item) => {
+    setSelectedItems((prev) => {
+      const existing = prev.find((i) => i.id === item.id);
+      if (!existing) return prev;
+
+      if (existing.quantity === 1) {
+        return prev.filter((i) => i.id !== item.id);
+      } else {
+        return prev.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i
+        );
+      }
+    });
+  };
+
+  const totalAmount = selectedItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
   const handlePlaceOrder = () => {
     const newOrder = {
       id: orders.length + 1,
@@ -69,6 +98,7 @@ function Order() {
         onPlaceItem={handlePlaceOrder}
         totalAmount={totalAmount}
         customerName={customerName}
+        onRemoveItem={handleDecreaseAmount}
       />
 
       <div className="md:col-span-2 h-[calc(100vh_-_130px)]">
